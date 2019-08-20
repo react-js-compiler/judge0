@@ -1,7 +1,7 @@
 /* eslint-disable import/first */
 import React from "react"
 import Home from "./components/pages/home";
-import Problem from "./components/pages/test";
+import Problem from "./components/pages/problem";
 import Explore from "./components/pages/explore";
 const routes =[
     {

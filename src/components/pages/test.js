@@ -72,7 +72,7 @@ export default class Problem extends React.Component{
             </Col>
             <Col span={14}>
              <div className="language" style={{background: "#fafafa", padding: "4px 0px"}}>
-                <Select defaultValue="27" style={{ width: 120 }} onChange={this.handleChange}>
+                <Select value={this.state.language_id} style={{ width: 120 }} onChange={this.handleChange}>
                  {languages}
                 </Select>
               </div>

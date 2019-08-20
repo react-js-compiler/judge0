@@ -1,7 +1,7 @@
 /* eslint-disable import/first */
 import React from 'react';
 
-import { Layout , Row, Col} from 'antd';
+import { Layout , Row, Col, Icon} from 'antd';
 import "codemirror/lib/codemirror.css";
 import 'antd/dist/antd.css'; 
 import { Select } from 'antd';
@@ -49,21 +49,36 @@ export default class Problem extends React.Component{
             <HeaderApp/>
           <Row>
             <Col span={10}>
-            <Tabs type="card">
-              <TabPane tab="Description" key="1">
+            <Tabs className="tab-description">
+              <TabPane key="1"
+                tab={
+                  <span>
+                    <Icon type="pic-left" /> Description
+                  </span>
+                }
+              >
                 <Description />
               </TabPane>
-              <TabPane tab="Solution" key="2">
+              <TabPane tab={
+                <span>
+                  <Icon type="solution" /> Solution
+                </span>
+              } key="2">
                 <p>Content of Tab Pane 2</p>
                 <p>Content of Tab Pane 2</p>
                 <p>Content of Tab Pane 2</p>
               </TabPane>
-              <TabPane tab="Submissions" key="3">
+              <TabPane tab={
+                <span><Icon type="clock-circle" />Submissions</span>
+              }
+              key="3">
                 <p>Content of Tab Pane 3</p>
                 <p>Content of Tab Pane 3</p>
                 <p>Content of Tab Pane 3</p>
               </TabPane>
-              <TabPane tab="Discuss" key="4">
+              <TabPane tab={
+                <span><Icon type="message" />Discuss</span>
+                } key="4">
                 <p>Content of Tab Pane 3</p>
                 <p>Content of Tab Pane 3</p>
                 <p>Content of Tab Pane 3</p>

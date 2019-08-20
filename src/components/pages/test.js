@@ -10,7 +10,7 @@ const { Option } = Select;
 import { Tabs } from 'antd';
 import Description from '../problem/Description';
 import Compiler from '../problem/Compiler';
-import HeaderApp from "./../layout/main/header";
+import HeaderApp from "../layout/main/header";
 const { TabPane } = Tabs;
 export default class Problem extends React.Component{
   constructor(props){

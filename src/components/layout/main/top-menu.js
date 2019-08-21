@@ -11,7 +11,7 @@ export default class MenuApp extends React.Component{
                 mode="horizontal"
                 style={{ lineHeight: '50px' }}
             >
-                <Menu.Item><Link to="/"><img src="https://vn.rikkeisoft.com/images/layouts/logo.jpg" alt="logo" class="image-logo" style={{marginBottom: '2px', height: '20px' , marginLeft: '8px'}}/></Link></Menu.Item>
+                <Menu.Item><Link to="/"><img src="https://vn.rikkeisoft.com/images/layouts/logo.jpg" alt="logo" className="image-logo" style={{marginBottom: '2px', height: '20px' , marginLeft: '8px'}}/></Link></Menu.Item>
                 <Menu.Item key="1"><Link to="/explore">Explore</Link></Menu.Item>
                 <Menu.Item key="2"><Link to="/problemset/all/">Problem</Link></Menu.Item>
                 <Menu.Item key="3">Mock</Menu.Item>

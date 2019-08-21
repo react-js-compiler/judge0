@@ -27,7 +27,7 @@ export default class Company extends React.Component{
     <Menu
         onClick={this.handleClick}
         style={{ width: '100%' }}
-        // defaultSelectedKeys={['1']}
+    
         defaultOpenKeys={['sub1']}
         mode="inline"
       >

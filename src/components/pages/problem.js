@@ -8,39 +8,28 @@ import { Select, Modal } from 'antd';
 import callAPI from "../../util/callAPI";
 const { Option } = Select;
 import { Tabs } from 'antd';
-import Description from '../problem/Description';
+import Description from './../block/tabs/problem/description';
+import Solution from './../block/tabs/problem/solution';
+import Discuss from './../block/tabs/problem/discuss';
+import Submission from './../block/tabs/problem/submission';
 import Compiler from '../problem/Compiler';
 import HeaderApp from "./../layout/main/header";
 import { Button } from 'antd';
+import {connect} from 'react-redux';
+import LanguageID from "./../problem/language_id";
 const { TabPane } = Tabs;
-export default class Problem extends React.Component {
+class Problem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      languages: [],
-      language_id: 27,
       fullscreen: false,
-      theme: '3024-day',
+      theme: this.props.theme,
       visible: false
     }
-    this.handleChange = this.handleChange.bind(this);
-
-  }
-  handleChange(value) {
-    this.setState({
-      language_id: value
-    })
   }
   handleFullScreen = () => {
     this.setState({
       fullscreen: !this.state.fullscreen
-    })
-  }
-  componentWillMount() {
-    callAPI("languages", "GET", null).then(res => {
-      this.setState({
-        languages: res.data
-      })
     })
   }
   showModal = () => {
@@ -54,7 +43,6 @@ export default class Problem extends React.Component {
       visible: false,
     });
   };
-
   handleCancel = e => {
     console.log(e);
     this.setState({
@@ -65,15 +53,10 @@ export default class Problem extends React.Component {
     this.setState({
       theme: value
     });
+    this.props.changetheme(value);
   }
   render() {
-    var languages = this.state.languages.map(
-      function iterator(language) {
-        return (
-          <Option key={language.id} value={language.id}>{language.name}</Option>
-        );
-      },
-    );
+   
     return (
       <div>
         <Layout className="container">
@@ -81,40 +64,18 @@ export default class Problem extends React.Component {
           <Row>
             <Col span={10}>
               <Tabs className="tab-description">
-                <TabPane key="1"
-                  tab={
-                    <span>
-                      <Icon type="pic-left" /> Description
-                  </span>
-                  }
-                >
+                <TabPane key="1" tab={ <span><Icon type="pic-left" /> Description</span>}>
                   <Description />
                 </TabPane>
-                <TabPane tab={
-                  <span>
-                    <Icon type="solution" /> Solution
-                </span>
-                } key="2">
-                  <p>Content of Tab Pane 2</p>
-                  <p>Content of Tab Pane 2</p>
-                  <p>Content of Tab Pane 2</p>
+                <TabPane tab={ <span><Icon type="solution" /> Solution</span>} key="2">
+                  <Solution />
                 </TabPane>
-                <TabPane tab={
-                  <span><Icon type="clock-circle" />Submissions</span>
-                }
-                  key="3">
-                  <p>Content of Tab Pane 3</p>
-                  <p>Content of Tab Pane 3</p>
-                  <p>Content of Tab Pane 3</p>
+                <TabPane tab={<span><Icon type="clock-circle" />Submissions</span>}key="3">
+                 <Submission />
                 </TabPane>
-                <TabPane tab={
-                  <span><Icon type="message" />Discuss</span>
-                } key="4">
-                  <p>Content of Tab Pane 3</p>
-                  <p>Content of Tab Pane 3</p>
-                  <p>Content of Tab Pane 3</p>
+                <TabPane tab={<span><Icon type="message" />Discuss</span>} key="4">
+                  <Discuss />
                 </TabPane>
-
               </Tabs>
               <div className="footer-compiler">
                 <Button><Icon type="unordered-list" style={{ marginRight: "5px" }} /> Problems</Button>
@@ -122,9 +83,7 @@ export default class Problem extends React.Component {
             </Col>
             <Col span={14}>
               <div className="language" style={{ background: "#fafafa", padding: "6px 0px" }}>
-                <Select value={this.state.language_id} style={{ width: 120 }} onChange={this.handleChange}>
-                  {languages}
-                </Select>
+                <LanguageID language_id = {this.props.language_id}/>
                 <div className="btns_toll">
                   <Icon type="code" />
                   <Icon type="setting" onClick={this.showModal}/>
@@ -136,10 +95,7 @@ export default class Problem extends React.Component {
                 visible={this.state.visible}
                 onOk={this.handleOk}
                 onCancel={this.handleCancel}
-                footer={[
-                  null,
-                  null,
-                ]}
+                footer={null}
               >
                 <Row>
                   <Col span={18}>
@@ -157,7 +113,7 @@ export default class Problem extends React.Component {
                   </Col>
                 </Row>
               </Modal>
-              <Compiler language_id={this.state.language_id} theme ={this.state.theme}/>
+              <Compiler language_id={this.props.language_id}/>
             </Col>
           </Row>
         </Layout>
@@ -166,3 +122,22 @@ export default class Problem extends React.Component {
   }
 
 }
+const mapStateToProps = (state) =>{
+	const {theme , language_id} = state;
+	return {
+	  theme, language_id
+	}
+}
+const mapDispatchToProps = (dispatch) =>{
+  return {
+    changetheme:(text) => dispatch({
+      type:'CHANGE_THEME',
+      text:text
+    }),
+    changelanguage_id: (text) => dispatch({
+      type: 'CHANGE_LANGUAGE_ID',
+      text: text
+    })
+  }  
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Problem);

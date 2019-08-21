@@ -1,6 +1,6 @@
 /* eslint-disable import/first */
 import React from 'react';
-
+import {connect} from 'react-redux';
 import { Col , Form, Button, Input , Icon, Tabs} from 'antd';
 import { Controlled as CodeMirror} from "react-codemirror2";
 import callAPI from "./../../util/callAPI";
@@ -12,7 +12,7 @@ import 'codemirror/mode/javascript/javascript.js';
 const { TextArea } = Input;
 const { TabPane } = Tabs;
 
-export default class Compiler extends React.Component{
+class Compiler extends React.Component{
 	constructor(props) {
 	    super(props);
 	    this.state = {
@@ -20,27 +20,24 @@ export default class Compiler extends React.Component{
 	    	language_id : 27,
 	    	stdout: "You must submission",
 	    	activeTab: "1", 
-	    	stdin: "",
-	    	value: ""
+			value: "",
+			stdin: "[2, 7, 11, 15]\n9",
 	    }
-	    this.handleClick = this.handleClick.bind(this);
-	    this.handleSubmit = this.handleSubmit.bind(this);
-	    this.handleSource = this.handleSource.bind(this);
   	}
   	componentWillMount(){
   		this.setState({
   			source_code : Config.SOURCE[this.props.language_id]
   		})
   	}
-	handleClick() {
-	    var source_code = this.state.source_code;
+	handleClick = () => {
+		var { source_code , stdin } = this.state;
 	    var language_id = this.props.language_id;
 	    var data = {
 		    "source_code": source_code,
 		    "language_id": language_id,
 		    "number_of_runs": "1",
-		    "stdin": "Judge0",
-		    "expected_output": "hello, Judge0",
+		    "stdin": stdin,
+		    "expected_output": "[0, 1]",
 		    "cpu_time_limit": "2",
 		    "cpu_extra_time": "0.5",
 		    "wall_time_limit": "5",
@@ -58,15 +55,15 @@ export default class Compiler extends React.Component{
 		    });
 		});
   	}
-  	handleSubmit(){
-  		var source_code = this.state.source_code;
-	    var language_id = this.props.language_id;
+  	handleSubmit = () =>{
+  		var { source_code , stdin } = this.state;
+		var language_id = this.props.language_id;
 	    var data = {
 		    "source_code": source_code,
 		    "language_id": language_id,
 		    "number_of_runs": "1",
-		    "stdin": "Judge0",
-		    "expected_output": "hello, Judge0",
+		    "stdin": stdin,
+		    "expected_output": "[0, 1]",
 		    "cpu_time_limit": "2",
 		    "cpu_extra_time": "0.5",
 		    "wall_time_limit": "5",
@@ -96,12 +93,12 @@ export default class Compiler extends React.Component{
 	  		})
 	  	}
 	}
-  	handleSource(value){
-  		this.setState({
-  			source_code: value
-  		});
-  	}
-  	render() {
+	updateIn = (e) =>{
+		this.setState({
+			stdin: e.target.value
+		});
+	}  
+	render() {
   	var options = {
     	lineNumbers: true,
 		scroll: false,
@@ -125,7 +122,7 @@ export default class Compiler extends React.Component{
 	        	<Tabs style={{height: "202px"}}  activeKey={this.state.activeTab}  onChange={this.changeTab}>
 			      <TabPane tab="Input" key="1" >
 			       <Form.Item style={{padding: "10px", border: "none !important"}}>
-				      <TextArea rows={4} />
+				      <TextArea rows={4} value={this.state.stdin} onChange={e => this.updateIn(e)}/>
 				    </Form.Item>
 			      </TabPane>
 			      <TabPane tab="Output" key="2" style={{padding: "0px 20px"}}>
@@ -143,3 +140,10 @@ export default class Compiler extends React.Component{
     );
   }
 }
+const mapStateToProps = (state) =>{
+	const {theme} = state;
+	return {
+	  theme
+	}
+  }
+export default connect(mapStateToProps)(Compiler)

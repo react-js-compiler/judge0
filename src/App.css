@@ -1,7 +1,35 @@
+.btns_toll{
+  float: right;
+  margin-right: 20px;
+  line-height: 34px
+}
+.btns_toll i{
+  margin-right: 20px;
+}
+.ant-tabs-tab{
+  background: #fafafa;
+}
+
+.ant-menu-submenu-title {
+  padding-left: 12px !important;
+}
+.ant-tabs-nav-scroll{
+  background-color: #fafafa;
+}
+.ant-tabs-ink-bar {
+  background-color: #fff !important;
+}
+.ant-tabs-tab-active{
+  background: #fff;
+  color: #757575 !important;
+}
 .tab-description .ant-tabs-tab{
   border-right: 1px solid #e8e8e8 !important;
   border-left: none !important;
   width: 128px;
+}
+.tab-description .ant-tabs-tab:last-child{
+  border-right: none !important;
 }
 .ant-layout-header{
   padding: 0px !important;
@@ -53,6 +81,12 @@
 }
 .footer-compiler{
   margin-top: 10px;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  padding: 5px 20px;
+  background: #fff;
+  border-top: 1px solid #eee;
 }
 .compiler-editor {
   border: 1px solid #eeeeee;
@@ -132,7 +166,6 @@
   padding: 0px 20px;
   height: 542px;
   overflow: auto;
-  border-bottom: solid 1px #eeeeee;
 }
 .description.content::-webkit-scrollbar {
     width: 6px;

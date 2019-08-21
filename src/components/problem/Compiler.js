@@ -6,6 +6,8 @@ import { Controlled as CodeMirror} from "react-codemirror2";
 import callAPI from "./../../util/callAPI";
 import * as Config from "./../../constants/Config";
 import "codemirror/lib/codemirror.css";
+import "codemirror/theme/3024-day.css";
+import "codemirror/theme/3024-night.css";
 import 'codemirror/mode/javascript/javascript.js';
 const { TextArea } = Input;
 const { TabPane } = Tabs;
@@ -102,7 +104,8 @@ export default class Compiler extends React.Component{
   	render() {
   	var options = {
     	lineNumbers: true,
-    	scroll: false
+		scroll: false,
+		theme: this.props.theme
     };
     let that = this;
     // var source_code = this.state.source_code;
@@ -119,7 +122,7 @@ export default class Compiler extends React.Component{
 					onChange={(editor, data, value) => {
 					}}
     			/>
-	        	<Tabs style={{height: "200px"}}  activeKey={this.state.activeTab}  onChange={this.changeTab}>
+	        	<Tabs style={{height: "202px"}}  activeKey={this.state.activeTab}  onChange={this.changeTab}>
 			      <TabPane tab="Input" key="1" >
 			       <Form.Item style={{padding: "10px", border: "none !important"}}>
 				      <TextArea rows={4} />

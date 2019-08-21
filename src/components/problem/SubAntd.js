@@ -1,7 +1,5 @@
 import { Table, Divider, Tag } from 'antd';
 import React from 'react';
-
-
 export default class SubAntd extends React.Component{
     state ={
         color :'red'
@@ -68,13 +66,13 @@ export default class SubAntd extends React.Component{
               );
           });
         return (
-            <table className="table-antd">
+            <table className ="ant-table" >
                 <tr>
-                    <th>Time</th>
-                    <th>Status</th>
-                    <th>RunTime</th>
-                    <th>Memory</th>
-                    <th>Language</th>
+                    <th >Time</th>
+                    <th >Status</th>
+                    <th >RunTime</th>
+                    <th >Memory</th>
+                    <th >Language</th>
                 </tr>
                 {listRow}
             </table>

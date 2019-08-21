@@ -38,15 +38,16 @@ export default class Description extends React.Component{
               <p className="submition">Submissions <span>2,019,238</span></p>
             </div>
           </div>
-            <Company />
-            <RelatedTopic/>
-            <SimilarQuestion/>
+            <div className="bt-ct-des">
+              <Company />
+              <RelatedTopic/>
+              <SimilarQuestion/>
+            </div>
+            
         </div>
         </div>
        
-        <div className="footer-compiler" style={{padding: "0px 20px"}}>
-          <Button onClick={this.handleClick}><Icon type="unordered-list" style={{marginRight: "5px"}} /> Problems</Button>
-       </div> 
+       
       </Col>
     );
   }

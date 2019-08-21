@@ -20,6 +20,7 @@ class App extends Component {
           exact = {route.exact}
           key ={index}
           component = {route.main}
+          title="Login"
         />
       })
     }

@@ -11,6 +11,8 @@ import { Tabs } from 'antd';
 import Description from '../problem/Description';
 import Compiler from '../problem/Compiler';
 import HeaderApp from "../layout/main/header";
+import Submissions from '../problem/Submissions';
+import SubAntd from '../problem/SubAntd';
 const { TabPane } = Tabs;
 export default class Problem extends React.Component{
   constructor(props){
@@ -72,9 +74,7 @@ export default class Problem extends React.Component{
                 <span><Icon type="clock-circle" />Submissions</span>
               }
               key="3">
-                <p>Content of Tab Pane 3</p>
-                <p>Content of Tab Pane 3</p>
-                <p>Content of Tab Pane 3</p>
+                <SubAntd />
               </TabPane>
               <TabPane tab={
                 <span><Icon type="message" />Discuss</span>

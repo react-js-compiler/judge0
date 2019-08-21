@@ -1,3 +1,15 @@
+.accept{
+  color: green;
+}
+.wrong{
+  color: red;
+}
+.table-antd{
+    padding: 13px;
+    border-bottom: 1px solid #eeeeee;
+    border-right: 1px solid #eeeeee;
+    color: #424242;
+}
 .tab-description .ant-tabs-tab{
   border-right: 1px solid #e8e8e8 !important;
   border-left: none !important;

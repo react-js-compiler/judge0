@@ -1,3 +1,19 @@
+.success{
+  font-weight: bold;
+  color: #26a69a;
+  font-size: 25px;
+}
+.wrong{
+  color: red;
+  font-weight: bold;
+  font-size: 25px;
+}
+.submission{
+  margin: 0px 20px;
+}
+.data_info{
+  font-size: 20px;
+}
 .btns_toll{
   float: right;
   margin-right: 20px;

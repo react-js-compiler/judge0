@@ -1,7 +1,7 @@
 /* eslint-disable import/first */
 import React from 'react';
 
-import { Layout, Row, Col, Icon} from 'antd';
+import { Layout, Row, Col, Icon } from 'antd';
 import "codemirror/lib/codemirror.css";
 import 'antd/dist/antd.css';
 import { Select, Modal } from 'antd';
@@ -15,7 +15,7 @@ import Submission from './../block/tabs/problem/submission';
 import Compiler from '../problem/Compiler';
 import HeaderApp from "./../layout/main/header";
 import { Button } from 'antd';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import LanguageID from "./../problem/language_id";
 const { TabPane } = Tabs;
 class Problem extends React.Component {
@@ -24,7 +24,11 @@ class Problem extends React.Component {
     this.state = {
       fullscreen: false,
       theme: this.props.theme,
-      visible: false
+      visible: false, 
+      stdout: "",
+      time: "",
+      memory: "", 
+      activeTab: "1"
     }
   }
   handleFullScreen = () => {
@@ -49,31 +53,48 @@ class Problem extends React.Component {
       visible: false,
     });
   };
-  changeTheme = (value) =>{
+  changeTheme = (value) => {
     this.setState({
       theme: value
     });
     this.props.changetheme(value);
   }
+  getHandleSubmission = (stdout, time, memory) => {
+    this.setState({
+      stdout,
+      time,
+      memory,
+      activeTab: "3"
+    })
+  }
+  changeTab = activeKey => {
+		this.setState({
+			activeTab: activeKey
+		});
+	};
   render() {
-   
+
     return (
       <div>
         <Layout className="container">
           {this.state.fullscreen == false ? <HeaderApp /> : null}
           <Row>
             <Col span={10}>
-              <Tabs className="tab-description">
-                <TabPane key="1" tab={ <span><Icon type="pic-left" /> Description</span>}>
+              <Tabs className="tab-description" activeKey={this.state.activeTab} onChange={this.changeTab}>
+                <TabPane key="1" tab={<span><Icon type="pic-left" /> Description</span>}>
                   <Description />
                 </TabPane>
-                <TabPane tab={ <span><Icon type="solution" /> Solution</span>} key="2">
+                <TabPane tab={<span><Icon type="solution" /> Solution</span>} key="2" disabled="true">
                   <Solution />
                 </TabPane>
-                <TabPane tab={<span><Icon type="clock-circle" />Submissions</span>}key="3">
-                 <Submission />
+                <TabPane tab={<span><Icon type="clock-circle" />Submissions</span>} key="3">
+                  <Submission 
+                    time = {this.state.time}
+                    stdout = {this.state.stdout}
+                    memory = {this.state.memory}
+                  />
                 </TabPane>
-                <TabPane tab={<span><Icon type="message" />Discuss</span>} key="4">
+                <TabPane tab={<span><Icon type="message" />Discuss</span>} key="4" disabled="true">
                   <Discuss />
                 </TabPane>
               </Tabs>
@@ -83,10 +104,10 @@ class Problem extends React.Component {
             </Col>
             <Col span={14}>
               <div className="language" style={{ background: "#fafafa", padding: "6px 0px" }}>
-                <LanguageID language_id = {this.props.language_id}/>
+                <LanguageID language_id={this.props.language_id} />
                 <div className="btns_toll">
                   <Icon type="code" />
-                  <Icon type="setting" onClick={this.showModal}/>
+                  <Icon type="setting" onClick={this.showModal} />
                   <Icon type="fullscreen" onClick={this.handleFullScreen} />
                 </div>
               </div>
@@ -113,7 +134,10 @@ class Problem extends React.Component {
                   </Col>
                 </Row>
               </Modal>
-              <Compiler language_id={this.props.language_id}/>
+              <Compiler 
+                language_id={this.props.language_id} 
+                resultSubmission = {this.getHandleSubmission}
+              />
             </Col>
           </Row>
         </Layout>
@@ -122,22 +146,22 @@ class Problem extends React.Component {
   }
 
 }
-const mapStateToProps = (state) =>{
-	const {theme , language_id} = state;
-	return {
-	  theme, language_id
-	}
-}
-const mapDispatchToProps = (dispatch) =>{
+const mapStateToProps = (state) => {
+  const { theme, language_id } = state;
   return {
-    changetheme:(text) => dispatch({
-      type:'CHANGE_THEME',
-      text:text
+    theme, language_id
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changetheme: (text) => dispatch({
+      type: 'CHANGE_THEME',
+      text: text
     }),
     changelanguage_id: (text) => dispatch({
       type: 'CHANGE_LANGUAGE_ID',
       text: text
     })
-  }  
+  }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Problem);
+export default connect(mapStateToProps, mapDispatchToProps)(Problem);

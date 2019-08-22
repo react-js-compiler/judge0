@@ -54,9 +54,17 @@ var insectSource ="\
 sin(30°)\n";
 
 var javaSource = "\
-public class Main {\n\
-    public static void main(String[] args) {\n\
-        System.out.println(\"hello, world\");\n\
+class Solution {\n\
+    public int[] twoSum(int[] nums, int target) {\n\
+        Map<Integer,Integer> map = new HashMap<>();\n\
+        for(int i = 0 ; i< nums.length ; i++){\n\
+            int value = target - nums[i];\n\
+            if(map.containsKey(value)){\n\
+                return new int[] {map.get(value), i};\n\
+            }\n\
+            map.put(nums[i], i);\n\
+        }\n\
+        throw new IllegalArgumentException(\"No two sum solution\");\n\
     }\n\
 }\n";
 
@@ -128,3 +136,98 @@ export const SOURCE = {
  42: rustSource,
  43: textSource
 };
+
+var mainJavaSource = "\
+import java.io.*;\n\
+import java.util.*;\n\
+public class Main {\n\
+    public static int[] stringToIntegerArray(String input) {\n\
+        input = input.trim();\n\
+        input = input.substring(1, input.length() - 1);\n\
+        if (input.length() == 0) {\n\
+          return new int[0];\n\
+        }\n\
+        String[] parts = input.split(\",\");\n\
+        int[] output = new int[parts.length];\n\
+        for(int index = 0; index < parts.length; index++) {\n\
+            String part = parts[index].trim();\n\
+            output[index] = Integer.parseInt(part);\n\
+        }\n\
+        return output;\n\
+    }\n\
+    public static String integerArrayToString(int[] nums, int length) { \n\
+        if (length == 0) { \n\
+            return \"[]\"; \n\
+        }\n\
+        String result = \"\";\n\
+        for(int index = 0; index < length; index++) {\n\
+            int number = nums[index];\n\
+            result += Integer.toString(number) + \", \"; \n\
+        }\n\
+        return \"[\" + result.substring(0, result.length() - 2) + \"]\";\n\
+    }\n\
+    public static String integerArrayToString(int[] nums) {\n\
+        return integerArrayToString(nums, nums.length);\n\
+    }\n\
+    public static void main(String[] args) throws IOException { \n\
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));\n\
+        String line; \n\
+        while ((line = in.readLine()) != null) { \n\
+            int[] nums = stringToIntegerArray(line); \n\
+            line = in.readLine();\n\
+            int target = Integer.parseInt(line);\n\
+            int[] ret = new Solution().twoSum(nums, target);\n\
+            String out = integerArrayToString(ret);\n\
+            System.out.print(out);\n\
+        }\n\
+    }\n\
+}\n";
+export const MAIN = {
+    1: "",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: "",
+    7: "",
+    8: "",
+    9: "",
+   10: "",
+   11: "",
+   12: "",
+   13: "",
+   14: "",
+   15: "",
+   16: "",
+   17: "",
+   18: "",
+   19: "",
+   20: "",
+   21: "",
+   22: "",
+   23: "",
+   24: "",
+   25: "",
+   26: mainJavaSource,
+   27: mainJavaSource,
+   28: mainJavaSource,
+   29: "",
+   30: "",
+   31: "",
+   32: "",
+   33: "",
+   34: "",
+   35: "",
+   36: "",
+   37: "",
+   38: "",
+   39: "",
+   40: "",
+   41: "",
+   42: "",
+   43: ""
+}
+// export const INPUT = "[1, 2, 3, 4, 5]\n9\n[2, 7, 11, 15]\n9\n[1, 2, 3, 4, 5]\n9\n[1, 2, 3, 4, 5]\n9\n";
+export const INPUT = "[1, 2, 3, 4, 5]\n9";
+export const OUPUT = "[3, 4]";
+// export const OUPUT = "[3, 4][0, 1][3, 4][3, 4]"
